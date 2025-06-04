@@ -1,0 +1,342 @@
+/* ============================================================== */
+/* 1. ГЛОБАЛЬНЫЙ СБРОС И CSS-ПЕРЕМЕННЫЕ */
+/* ============================================================== */
+/* Обнуляем отступы и границы, используем border-box для удобства адаптивности */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --font-family: 'Arial', sans-serif;
+    --color-background: linear-gradient(to right, #BC987E, #D9C3B9);
+    --color-dark: #333;
+    --color-light: rgba(255, 255, 255, 0.9);
+    --color-footer: #A0522D;
+
+    /* Переводим PX в REM (при базовом шрифте 16px): */
+    /* 6.67px / 16px = ~0.417rem */
+    --padding-small: 0.417rem;
+    /* 13.33px / 16px = ~0.833rem */
+    --padding-medium: 0.833rem;
+    /* 3.33px / 16px = ~0.208rem */
+    --border-radius: 0.208rem;
+
+    /* Переменные для базового размера шрифта на разных устройствах */
+    --base-font-size-mobile: 1rem; /* 16px */
+    --base-font-size-tablet: 1.0625rem; /* 17px */
+    --base-font-size-desktop: 1.125rem; /* 18px */
+}
+
+/* ============================================================== */
+/* 2. БАЗОВЫЕ СТИЛИ (MOBILE-FIRST DEFAULTS: для 320px - 480px) */
+/* Эти стили применяются ко ВСЕМУ по умолчанию и оптимизированы для самых маленьких экранов */
+/* ============================================================== */
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background-image: linear-gradient(to right, #BC987E, #D9C3B9);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background-color: #A0522D;
+    color: white;
+    padding: 5.56px 0; /* 6.67 / 1.2 */
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 0.14vw 0.35vw rgba(0, 0, 0, 0.3); /* vw единицы */
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo {
+    width: 5.003vw; /* 6.003 / 1.2 */
+    height: auto;
+    max-width: 100%;
+    margin-bottom: 0.00vw; /* Уменьшено в полтора раза */
+}
+
+h1 {
+    margin-bottom: 0.69vw; /* 0.83 / 1.2 */
+    font-size: 1.11vw; /* 1.33 / 1.2 */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 0.52vw; /* 0.625 / 1.2 */
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 0.35vw 0.69vw; /* Уменьшено в полтора раза */
+    border-radius: 0.17vw; /* Уменьшено в полтора раза */
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+nav a:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 0.14vw 0.52vw rgba(0, 0, 0, 0.4); /* vw единицы */
+}
+
+main {
+    flex-grow: 1;
+    padding: 1.04vw; /* Уменьшено в полтора раза */
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    box-shadow: 0 0.21vw 1.04vw rgba(0, 0, 0, 0.2); /* vw единицы */
+    text-align: center;
+    max-width: 41.67vw; /* Уменьшено в полтора раза */
+    margin: 1.04vw auto; /* Уменьшено в полтора раза */
+    border-radius: 0.52vw; /* Уменьшено в полтора раза */
+}
+
+h2#services-title {
+    margin-bottom: 1.04vw; /* Уменьшено в полтора раза */
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13.02vw, 1fr)); /* Уменьшено в полтора раза */
+    grid-gap: 1.04vw; /* Уменьшено в полтора раза */
+    grid-template-rows: auto auto;
+}
+
+.service {
+    border: 0.052vw solid #ccc; /* Уменьшено в полтора раза */
+    padding: 1.04vw; /* Уменьшено в полтора раза */
+    text-align: center;
+    box-shadow: 0.10vw 0.10vw 0.26vw rgba(0, 0, 0, 0.1); /* Уменьшено в полтора раза */
+    background-color: #f9f9f9;
+}
+
+.service img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0.52vw; /* Уменьшено в полтора раза */
+}
+
+/* Медиа-запросы для адаптивности */
+@media (min-width: 768px) { 
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+    }
+    
+    .logo {
+        width: 5.63vw; /* Уменьшено на 10% от предыдущего значения (6.75vw) */
+    }
+}
+
+@media (max-width: 767px) { 
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav li {
+        margin: 0.35vw 0; /* Уменьшено в полтора раза */
+    }
+    
+    .logo {
+        width: 3.13vw; /* Уменьшено на 10% от предыдущего значения (3.753vw) */
+    }
+}
+
+footer {
+    background-color: #A0522D;
+    color: white;
+    padding: 0.35vw; /* Уменьшено в полтора раза */
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.image-container {
+
+    border: 2px solid rgba(0, 0, 0, 0.5); /* Тонкая полупрозрачная рамка */
+    border-radius: 8px; /* Скругленные углы */
+    transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s; /* Плавный переход */
+    opacity: 0; /* Начальная прозрачность для анимации загрузки */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Легкая тень под изображением */
+}
+
+
+.image-container:hover {
+
+    opacity: 1; /* Полная непрозрачность при наведении */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* Увеличенная тень при наведении */
+}
+
+/* Анимация появления при загрузке */
+@keyframes fadeIn {
+    to {
+        opacity: 1; /* Полная непрозрачность */
+    }
+}
+
+/* Применяем анимацию к каждому изображению с задержкой */
+.image-container {
+    animation: fadeIn 0.5s forwards;
+}
+.image1 { animation-delay: 0.1s; }
+.image2 { animation-delay: 0.2s; }
+.image3 { animation-delay: 0.3s; }
+.image4 { animation-delay: 0.4s; }
+.image5 { animation-delay: 0.5s; }
+.image6 { animation-delay: 0.6s; }
+.image7 { animation-delay: 0.7s; }
+.image8 { animation-delay: 0.8s; }
+
+/* ============================================================== */
+/* БАЗОВЫЕ СТИЛИ (MOBILE-FIRST) - для 320px - 480px */
+/* Изображения будут меньше и расположены для компактных мобильных экранов */
+/* ============================================================== */
+.image1, .image2, .image3, .image4, .image5, .image6, .image7, .image8 {
+    position: absolute; /* Позиционирование изображений относительно ближайшего позиционированного предка или body */
+    width: 35vw; /* Уменьшаем ширину для мобильных (например, 35% от ширины экрана) */
+    height: auto; /* Высота автоматически подстраивается, сохраняя пропорции */
+    /* opacity: 0; */ /* Если вы используете fade-in анимацию, убедитесь, что они изначально скрыты */
+    /* transition: opacity 0.5s ease; */ /* Если вы хотите плавный переход при появлении без @keyframes */
+}
+
+/* Позиционирование изображений для 320px - 480px */
+/* Здесь мы делаем их более компактными, возможно, перекрывающимися,
+   или просто распределяем их по видимой области. */
+.image1 { top: 5vh; left: 5vw; transform: rotate(15deg); }
+.image2 { top: 20vh; left: 55vw; transform: rotate(-7deg); }
+.image3 { top: 35vh; left: 10vw; transform: rotate(22deg); }
+.image4 { top: 50vh; left: 60vw; transform: rotate(-19deg); }
+.image5 { top: 65vh; left: 5vw; transform: rotate(17deg); }
+.image6 { top: 80vh; left: 50vw; transform: rotate(-13deg); }
+/* Для мобильных, возможно, некоторые изображения не нужны или должны быть скрыты,
+   чтобы не перегружать экран. Если у вас 8 изображений, они могут сильно перекрываться.
+   Пример: .image7, .image8 { display: none; } */
+.image7 { top: 5vh; left: 30vw; transform: rotate(-22deg); } /* Пример, если они нужны */
+.image8 { top: 20vh; left: 20vw; transform: rotate(19deg); } /* Пример, если они нужны */
+
+
+/* ============================================================== */
+/* МЕДИАЗАПРОСЫ ДЛЯ КАЖДОГО ДИАПАЗОНА ЭКРАНА */
+/* ============================================================== */
+
+/* -------------------------------------------------------------------------- */
+/* 481px - 767px: Более крупные смартфоны, небольшие планшеты в портретной ориентации */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 767px) {
+    .image1, .image2, .image3, .image4, .image5, .image6, .image7, .image8 {
+        width: 28vw; /* Чуть больше */
+    }
+    .image1 { top: 8vh; left: 8vw; transform: rotate(15deg); }
+    .image2 { top: 25vh; left: 60vw; transform: rotate(-7deg); }
+    .image3 { top: 40vh; left: 12vw; transform: rotate(22deg); }
+    .image4 { top: 55vh; left: 65vw; transform: rotate(-19deg); }
+    .image5 { top: 70vh; left: 8vw; transform: rotate(17deg); }
+    .image6 { top: 85vh; left: 55vw; transform: rotate(-13deg); }
+    .image7 { top: 10vh; left: 35vw; transform: rotate(-22deg); }
+    .image8 { top: 30vh; left: 25vw; transform: rotate(19deg); }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 768px - 1023px: Планшеты (типичный iPad) в портретной ориентации, некоторые нетбуки */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .image1, .image2, .image3, .image4, .image5, .image6, .image7, .image8 {
+        width: 20vw; /* Увеличиваем размер еще */
+    }
+    /* Позиционирование начинает напоминать исходный макет, но все еще в процентах */
+    .image1 { top: 10vh; left: 10vw; transform: rotate(15deg); }
+    .image2 { top: 20vh; left: 70vw; transform: rotate(-7deg); }
+    .image3 { top: 5vh; left: 5vw; transform: rotate(22deg); }
+    .image4 { top: 3vh; left: 30vw; transform: rotate(-19deg); }
+    .image5 { top: 40vh; left: 75vw; transform: rotate(17deg); }
+    .image6 { top: 55vh; left: 65vw; transform: rotate(-13deg); }
+    .image7 { top: 10vh; left: 80vw; transform: rotate(-22deg); }
+    .image8 { top: 2vh; left: 60vw; transform: rotate(19deg); }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 1024px - 1200px: Ноутбуки и небольшие десктопные мониторы */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 1024px) and (max-width: 1200px) {
+    .image1, .image2, .image3, .image4, .image5, .image6, .image7, .image8 {
+        width: 18vw; /* Приближаемся к исходному размеру */
+    }
+    .image1 { top: 20vh; left: 12vw; transform: rotate(15deg); }
+    .image2 { top: 30vh; left: 75vw; transform: rotate(-7deg); }
+    .image3 { top: 8vh; left: 8vw; transform: rotate(22deg); }
+    .image4 { top: 5vh; left: 35vw; transform: rotate(-19deg); }
+    .image5 { top: 45vh; left: 80vw; transform: rotate(17deg); }
+    .image6 { top: 60vh; left: 70vw; transform: rotate(-13deg); }
+    .image7 { top: 15vh; left: 85vw; transform: rotate(-22deg); }
+    .image8 { top: 4vh; left: 65vw; transform: rotate(19deg); }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 1201px - 1440px: Стандартные Full HD мониторы */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 1201px) and (max-width: 1440px) {
+    .image1, .image2, .image3, .image4, .image5, .image6, .image7, .image8 {
+        width: 16vw; /* Еще ближе к исходному */
+    }
+    .image1 { top: 30vh; left: 8vw; transform: rotate(15deg); }
+    .image2 { top: 20vh; left: 78vw; transform: rotate(-7deg); }
+    .image3 { top: 7vh; left: 4vw; transform: rotate(22deg); }
+    .image4 { top: 2vh; left: 25vw; transform: rotate(-19deg); }
+    .image5 { top: 25vh; left: 80vw; transform: rotate(17deg); }
+    .image6 { top: 35vh; left: 70vw; transform: rotate(-13deg); }
+    .image7 { top: 8vh; left: 85vw; transform: rotate(-22deg); }
+    .image8 { top: 3vh; left: 60vw; transform: rotate(19deg); }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 1441px - 1920px+: Большие десктопные мониторы, 2K/4K мониторы */
+/* Здесь мы возвращаемся к вашему оригинальному размеру и расположению,
+   но переводим его в vw/vh для адаптивности */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 1441px) {
+    .image1, .image2, .image3, .image4, .image5, .image6, .image7, .image8 {
+        width: 13vw; /* Оригинальный размер в VW */
+    }
+    /* Примерный перевод ваших исходных px-значений в vh/vw (на основе 1920x1080) */
+    .image1 { top: 73.7vh; left: 6.5vw; transform: rotate(15deg); } /* 558px/1080px = ~51.7vh; 105px/1920px = ~5.5vw */
+    .image2 { top: 0.1vh; left: 24.5vw; transform: rotate(-0deg); } /* 350px/1080px = ~32.4vh; 86px/1920px = ~4.5vw */
+    .image3 { top: 42vh; left: 5.1vw; transform: rotate(22deg); } /* 130px/1080px = ~12vh; 40px/1920px = ~2.1vw */
+    .image4 { top: 12.9vh; left: 8.1vw; transform: rotate(-19deg); } /* 10px/1080px = ~0.9vh; 310px/1920px = ~16.1vw */
+    .image5 { top: 41vh; left: 80.7vw; transform: rotate(17deg); } /* 400px/1080px = ~37vh; 1550px/1920px = ~80.7vw */
+    .image6 { top: 61.3vh; left: 77.1vw; transform: rotate(-13deg); } /* 576px/1080px = ~53.3vh; 1480px/1920px = ~77.1vw */
+    .image7 { top: 0.1vh; left: 58.9vw; transform: rotate(-0deg); } /* 100px/1080px = ~9.2vh; 1630px/1920px = ~84.9vw */
+    .image8 { top: 9.9vh; left: 79.8vw; transform: rotate(19deg); } /* 10px/1080px = ~0.9vh; 1340px/1920px = ~69.8vw */
+}
+/* -------------------------------------------------------------------------- */
+/* > 1920px: Очень большие дисплеи, сверхширокие мониторы */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 1921px) {
+    .image1, .image2, .image3, .image4, .image5, .image6, .image7, .image8 {
+        width: 12vw; /* Можно немного уменьшить, чтобы на огромных экранах не были слишком гигантскими */
+    }
+    /* Можно оставить те же VW/VH значения для top/left, они будут масштабироваться.
+       Или, если нужно более плотное расположение на очень больших экранах, можно их скорректировать. */
+}
